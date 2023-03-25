@@ -18,16 +18,59 @@ export function initTasks() {
       end: new Date(
         currentDate.getFullYear(),
         currentDate.getMonth(),
-        2,
+        20,
         12,
         28
       ),
       name: "Idea",
+      id: "Task -1",
+      progress: 100,
+      type: "tasklist",
+      displayOrder: 2,
+      subTasks: [
+        {
+          start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+          end: new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            2,
+            12,
+            28
+          ),
+          name: "Idea 3",
+          id: "Task -2",
+          type: "task",
+        },
+        {
+          start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 3),
+          end: new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            4,
+            12,
+            28
+          ),
+          name: "Idea 4",
+          id: "Task -3",
+          type: "task",
+        },
+      ]
+    },
+    {
+      start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+      end: new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        2,
+        12,
+        28
+      ),
+      name: "Idea 2",
       id: "Task 0",
-      progress: 45,
+      progress: 100,
       type: "task",
       project: "ProjectSample",
-      displayOrder: 2,
+      displayOrder: 1,
     },
     {
       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),

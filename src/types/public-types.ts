@@ -9,7 +9,7 @@ export enum ViewMode {
   QuarterYear = "QuarterYear",
   Year = "Year",
 }
-export type TaskType = "task" | "milestone" | "project";
+export type TaskType = "task" | "milestone" | "project" | "tasklist";
 export interface Task {
   id: string;
   type: TaskType;
@@ -19,7 +19,7 @@ export interface Task {
   /**
    * From 0 to 100
    */
-  progress: number;
+  progress?: number;
   styles?: {
     backgroundColor?: string;
     backgroundSelectedColor?: string;
@@ -31,6 +31,7 @@ export interface Task {
   dependencies?: string[];
   hideChildren?: boolean;
   displayOrder?: number;
+  subTasks?: Task[];
 }
 
 export interface EventOption {
@@ -142,4 +143,6 @@ export interface StylingOption {
 
 export interface GanttProps extends EventOption, DisplayOption, StylingOption {
   tasks: Task[];
+  start?: Date;
+  end?: Date;
 }

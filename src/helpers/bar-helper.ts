@@ -115,6 +115,23 @@ const convertToBarTask = (
         projectBackgroundSelectedColor
       );
       break;
+    case "tasklist":
+      barTask = convertToTaskList(
+        task,
+        index,
+        dates,
+        columnWidth,
+        rowHeight,
+        taskHeight,
+        barCornerRadius,
+        handleWidth,
+        rtl,
+        projectProgressColor,
+        projectProgressSelectedColor,
+        projectBackgroundColor,
+        projectBackgroundSelectedColor
+      );
+      break;
     default:
       barTask = convertToBar(
         task,
@@ -169,7 +186,7 @@ const convertToBar = (
   const [progressWidth, progressX] = progressWithByParams(
     x1,
     x2,
-    task.progress,
+    task.progress || 100,
     rtl
   );
   const y = taskYCoordinate(index, rowHeight, taskHeight);
@@ -244,6 +261,57 @@ const convertToMilestone = (
     barChildren: [],
     styles,
   };
+};
+
+const convertToTaskList = (
+  task: Task,
+  index: number,
+  dates: Date[],
+  columnWidth: number,
+  rowHeight: number,
+  taskHeight: number,
+  barCornerRadius: number,
+  handleWidth: number,
+  rtl: boolean,
+  barProgressColor: string,
+  barProgressSelectedColor: string,
+  barBackgroundColor: string,
+  barBackgroundSelectedColor: string,
+): BarTask => {
+  // TODO: Calculate min and max date
+  const result = convertToBar(task,
+    index,
+    dates,
+    columnWidth,
+    rowHeight,
+    taskHeight,
+    barCornerRadius,
+    handleWidth,
+    rtl,
+    barProgressColor,
+    barProgressSelectedColor,
+    barBackgroundColor,
+    barBackgroundSelectedColor,
+  )
+
+  result.barChildren = task.subTasks?.map((subTask) => {
+    return convertToBar(
+      subTask,
+      index,
+      dates,
+      columnWidth,
+      rowHeight,
+      taskHeight,
+      barCornerRadius,
+      handleWidth,
+      rtl,
+      barProgressColor,
+      barProgressSelectedColor,
+      barBackgroundColor,
+      barBackgroundSelectedColor,
+    );
+  }) || []
+  return result;
 };
 
 const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number) => {
@@ -373,7 +441,7 @@ const dateByX = (
   let newDate = new Date(((x - taskX) / xStep) * timeStep + taskDate.getTime());
   newDate = new Date(
     newDate.getTime() +
-      (newDate.getTimezoneOffset() - taskDate.getTimezoneOffset()) * 60000
+    (newDate.getTimezoneOffset() - taskDate.getTimezoneOffset()) * 60000
   );
   return newDate;
 };
@@ -472,7 +540,7 @@ const handleTaskBySVGMouseEventForBar = (
         const [progressWidth, progressX] = progressWithByParams(
           changedTask.x1,
           changedTask.x2,
-          changedTask.progress,
+          changedTask.progress || 100,
           rtl
         );
         changedTask.progressWidth = progressWidth;
@@ -505,7 +573,7 @@ const handleTaskBySVGMouseEventForBar = (
         const [progressWidth, progressX] = progressWithByParams(
           changedTask.x1,
           changedTask.x2,
-          changedTask.progress,
+          changedTask.progress || 100,
           rtl
         );
         changedTask.progressWidth = progressWidth;
@@ -540,7 +608,7 @@ const handleTaskBySVGMouseEventForBar = (
         const [progressWidth, progressX] = progressWithByParams(
           changedTask.x1,
           changedTask.x2,
-          changedTask.progress,
+          changedTask.progress || 100,
           rtl
         );
         changedTask.progressWidth = progressWidth;

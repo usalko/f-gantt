@@ -5,6 +5,7 @@ import { Bar } from "./bar/bar";
 import { BarSmall } from "./bar/bar-small";
 import { Milestone } from "./milestone/milestone";
 import { Project } from "./project/project";
+import { TaskList } from "./task-list/task-list";
 import style from "./task-list.module.css";
 
 export type TaskItemProps = {
@@ -49,6 +50,9 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
         break;
       case "smalltask":
         setTaskItem(<BarSmall {...props} />);
+        break;
+      case "tasklist":
+        setTaskItem(<TaskList {...props} />);
         break;
       default:
         setTaskItem(<Bar {...props} />);
@@ -120,6 +124,20 @@ export const TaskItem: React.FC<TaskItemProps> = props => {
       >
         {task.name}
       </text>
+      {/* 
+      {taskItem}
+      <text
+        x={getX() + 100}
+        y={task.y + taskHeight * 0.5}
+        className={
+          isTextInside
+            ? style.barLabel
+            : style.barLabel && style.barLabelOutside
+        }
+        ref={textRef}
+      >
+        {task.name}
+      </text> */}
     </g>
   );
 };

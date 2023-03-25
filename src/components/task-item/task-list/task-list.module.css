@@ -1,0 +1,13 @@
+.taskListWrapper {
+  cursor: pointer;
+  outline: none;
+}
+
+.taskListBackground {
+  user-select: none;
+  opacity: 0.6;
+}
+
+.taskListTop {
+  user-select: none;
+}
